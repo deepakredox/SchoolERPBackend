@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.erpschool.serviceImpl.UserDetailServiceImpl;
+import com.erpschool.serviceImpl.signin.SignInServiceImpl;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -23,7 +23,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private UserDetailServiceImpl userDetailServiceImpl;
+	private SignInServiceImpl userDetailServiceImpl;
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
@@ -31,8 +31,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
-
+		
 		final String requestTokenHeader = request.getHeader("Authorization");
+		
+		System.out.println("requestTokenHeader....."+requestTokenHeader);
 
 		String username = null;
 		String jwtToken = null;

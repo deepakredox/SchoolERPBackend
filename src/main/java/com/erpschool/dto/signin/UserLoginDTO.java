@@ -1,4 +1,4 @@
-package com.erpschool.model;
+package com.erpschool.dto.signin;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="logindtls")
-public class UserDTO {
+public class UserLoginDTO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +17,8 @@ public class UserDTO {
 	@Column(name="ID")
 	private Integer id;
 	
-	@Column(name="EMAIL")
-	private String email;
+	@Column(name="USERNAME")
+	private String username;
 	
 	@Column(name="PASSWORD")
     private String password;
@@ -31,12 +31,12 @@ public class UserDTO {
 		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

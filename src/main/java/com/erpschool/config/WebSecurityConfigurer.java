@@ -2,6 +2,7 @@ package com.erpschool.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,15 +45,24 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
+	
+	/*
+	 * HTTP OPTIONS method is used to request information about the communication options available for the target resource. 
+	 The response may include an Allow header indicating allowed HTTP methods on the resource, or various Cross Origin Resource Sharing headers.
+	 */
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		// We don't need CSRF for this example
 		httpSecurity.csrf().disable()
 				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/authenticateUser", "/register").permitAll().
+				.authorizeRequests()
+				.antMatchers(HttpMethod.POST, "/authenticateUser", "/register")
+				.permitAll()
+				.antMatchers(HttpMethod.OPTIONS,"/**")
+				.permitAll()
 				// all other requests need to be authenticated
-				anyRequest().authenticated().and().
+				.anyRequest().authenticated().and().
 				// make sure we use stateless session; session won't be used to
 				// store user's state.
 				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
