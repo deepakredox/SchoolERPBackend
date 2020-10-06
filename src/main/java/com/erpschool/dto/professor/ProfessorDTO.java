@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="professorInfo")
-public class AddProfessorDTO {
+public class ProfessorDTO {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,6 +57,12 @@ public class AddProfessorDTO {
 	private String uploadImg;
 	
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getFirstname() {
 		return firstname;
 	}

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erpschool.model.professor.AddProfessorDtls;
+import com.erpschool.model.professor.ProfessorDtls;
 import com.erpschool.serviceInterface.professor.ProfessorServiceInterface;
 
 @RestController
@@ -14,13 +14,29 @@ import com.erpschool.serviceInterface.professor.ProfessorServiceInterface;
 public class ProfessorController {
 	
 	@Autowired
-	private ProfessorServiceInterface addProfessorServiceInterface;
+	private ProfessorServiceInterface professorServiceInterface;
 	
 	@PostMapping("/addProfessor")
-	public void addnewProfessor(@RequestBody AddProfessorDtls addProfessorDtls)
+	public void addnewProfessor(@RequestBody ProfessorDtls addProfessorDtls)
 	{
 		System.out.println("AddProfessorDtls.."+addProfessorDtls);
-		addProfessorServiceInterface.addNewProfessor(addProfessorDtls);
+		professorServiceInterface.addNewProfessor(addProfessorDtls);
+	}
+	
+	@PostMapping("/editProfessor")
+	public void editProfessor(@RequestBody ProfessorDtls editProfessorDtls) 
+	{
+	  	
+	  System.out.println("Edit the Professor");	
+	  professorServiceInterface.editProfessor(editProfessorDtls);
+	}
+	
+	@PostMapping("/deleteProfessor")
+	public void deleteProfessor(@RequestBody ProfessorDtls delProfessorDtls) 
+	{
+	  	
+	  System.out.println("Delete the Professor");	
+	  professorServiceInterface.deleteProfessor(delProfessorDtls);
 	}
 }
 

@@ -1,7 +1,8 @@
 package com.erpschool.model.professor;
 
-public class AddProfessorDtls {
+public class ProfessorDtls {
 	
+	private Integer id;
 	private String firstname;
 	private String lastname;
 	private String gender;
@@ -17,10 +18,11 @@ public class AddProfessorDtls {
 	private String uploadImg;
 	
 	
-	public AddProfessorDtls(String firstname, String lastname, String gender, String mobile, String password,
+	public ProfessorDtls(Integer id, String firstname, String lastname, String gender, String mobile, String password,
 			String conformPassword, String designation, String department, String address, String email, String dob,
 			String education, String uploadImg) {
 		super();
+		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.gender = gender;
@@ -34,8 +36,15 @@ public class AddProfessorDtls {
 		this.dob = dob;
 		this.education = education;
 		this.uploadImg = uploadImg;
+	}	
+	
+	public Integer getId() {
+		return id;
 	}
-
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getFirstname() {
 		return (firstname == "") ? "(NULL)" : firstname;
@@ -141,10 +150,9 @@ public class AddProfessorDtls {
 		this.uploadImg = uploadImg;
 	}
 
-
 	@Override
 	public String toString() {
-		return "AddProfessorDtls [firstname=" + firstname + ", lastname=" + lastname + ", gender=" + gender
+		return "ProfessorDtls [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", gender=" + gender
 				+ ", mobile=" + mobile + ", password=" + password + ", conformPassword=" + conformPassword
 				+ ", designation=" + designation + ", department=" + department + ", address=" + address + ", email="
 				+ email + ", dob=" + dob + ", education=" + education + ", uploadImg=" + uploadImg + "]";
