@@ -22,9 +22,6 @@ public class RegisterController {
 	@Autowired
 	private SignUpInterface  signUpInterface; 
 	
-	ResponseObjectXML responseObjectXML = new ResponseObjectXML();
-	List<String> datalist = new ArrayList<String>();	
-
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public Boolean saveUser(@RequestBody UserSignupDetails userSignupDetails) throws Exception {
 

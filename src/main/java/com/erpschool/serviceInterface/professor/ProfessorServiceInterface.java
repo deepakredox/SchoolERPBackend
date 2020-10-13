@@ -1,5 +1,6 @@
 package com.erpschool.serviceInterface.professor;
 
+import com.erpschool.dto.professor.ProfessorDTO;
 import com.erpschool.model.professor.ProfessorDtls;
 
 public interface ProfessorServiceInterface {
@@ -9,6 +10,8 @@ public interface ProfessorServiceInterface {
 	void editProfessor(ProfessorDtls editProfessorDtls);
 
 	void deleteProfessor(ProfessorDtls delProfessorDtls);
+
+	Iterable<ProfessorDTO> getAllProfessor();
 }
 
 

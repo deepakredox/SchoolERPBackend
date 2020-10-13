@@ -1,10 +1,8 @@
 package com.erpschool.serviceImpl.professor;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.erpschool.dao.professor.ProfessorDaoInterface;
 import com.erpschool.dto.professor.ProfessorDTO;
 import com.erpschool.model.professor.ProfessorDtls;
@@ -76,6 +74,12 @@ public class ProfessorServiceImpl implements ProfessorServiceInterface {
 	public void deleteProfessor(ProfessorDtls delProfessorDtls) {
 		
 		professorDaoInterface.deleteById(delProfessorDtls.getId());
+	}
+
+	@Override
+	public Iterable<ProfessorDTO> getAllProfessor() {
 		
+		Iterable<ProfessorDTO> professorDTO = professorDaoInterface.findAll();
+		return professorDTO;
 	}
 }

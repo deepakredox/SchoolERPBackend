@@ -3,23 +3,24 @@ package com.erpschool.apiresponse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResponseObjectXML {
+public class ResponseObjectXML<T> {
 	
-	private String status;
+	private int statusCode;
 	private String message;
-	private List<String> data = new ArrayList<String>() ;
+	private List<T> data = new ArrayList<T>() ;
 	
-	public List<String> getData() {
+	
+	public List<T> getData() {
 		return data;
 	}
-	public void setData(List<String> data) {
+	public void setData(List<T> data) {
 		this.data = data;
 	}
-	public String getStatus() {
-		return status;
+	public int getStatusCode() {
+		return statusCode;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
 	}
 	public String getMessage() {
 		return message;
