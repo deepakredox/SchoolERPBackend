@@ -25,7 +25,7 @@ public class ClassController {
 	@PostMapping("/addclass")
 	public ResponseEntity<ResponseObjectXML<ClassesDto>> addClass(@RequestBody ClassDtls classDtls)
 	{
-		//Add New Classes 
+		//Add New Classessss uuuuuu
 		return classesServiceInterface.addNewClassData(classDtls);
 	}
 	
