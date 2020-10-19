@@ -22,10 +22,10 @@ public class ClassController {
 	private ClassesServiceInterface classesServiceInterface;
 	
 	
-	
 	@PostMapping("/addclass")
 	public ResponseEntity<ResponseObjectXML<ClassesDto>> addClass(@RequestBody ClassDtls classDtls)
 	{
+		//Add New Classses
 		return classesServiceInterface.addNewClassData(classDtls);
 	}
 	
