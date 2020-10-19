@@ -160,7 +160,7 @@ public class ProfessorServiceImpl implements ProfessorServiceInterface {
 			}
 		} catch (Exception e) {
 			responseObjectXML.setStatusCode(HttpStatus.BAD_REQUEST.value());
-			responseObjectXML.setMessage("Error while deleting the data");
+			responseObjectXML.setMessage("Error while getting the data");
 			responseObjectXML.setData(null);
 			return new ResponseEntity<ResponseObjectXML<ProfessorDTO>>(responseObjectXML,HttpStatus.BAD_REQUEST);
 		}
