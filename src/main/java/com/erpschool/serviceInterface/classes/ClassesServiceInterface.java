@@ -12,7 +12,7 @@ public interface ClassesServiceInterface {
 
 	ResponseEntity<ResponseObjectXML<ClassesDto>> editCLassData(ClassDtls editclassDtls);
 
-	ResponseEntity<ResponseObjectXML<ClassesDto>> deleteClassData(ClassDtls deleteclassDtls);
+	ResponseEntity<ResponseObjectXML<ClassesDto>> deleteClassData(Integer rowId);
 
 	ResponseEntity<ResponseObjectXML<ClassesDto>> getAllClasses();
 

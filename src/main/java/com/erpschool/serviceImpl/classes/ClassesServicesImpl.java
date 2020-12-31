@@ -58,6 +58,7 @@ public class ClassesServicesImpl implements ClassesServiceInterface {
 			if(classesDtoData.isPresent())
 			{
 			  System.out.println("Classes Data value is present");	
+			  System.out.println("Edit "+editclassDtls.getId()+" "+ editclassDtls.getClassName() +" "+editclassDtls.getAbbreviation()+" "+editclassDtls.getPriority());
 			  editclassesdto.setId(editclassDtls.getId());
 			  editclassesdto.setClassName(editclassDtls.getClassName());
 			  editclassesdto.setAbbreviation(editclassDtls.getAbbreviation());
@@ -69,14 +70,9 @@ public class ClassesServicesImpl implements ClassesServiceInterface {
 				responseObjectXML.setMessage("Class Data Update Successfully");
 				responseObjectXML.setData(editClassesData);
 			}
-			else
-			{
-			  System.out.println("Class Data not found");
-			  addNewClassData(editclassDtls);
-			}
 		} catch (Exception e) {
 			responseObjectXML.setStatusCode(HttpStatus.BAD_REQUEST.value());
-			responseObjectXML.setMessage("Error while edit the Professor Data");
+			responseObjectXML.setMessage("Error while edit the Class Data");
 			responseObjectXML.setData(null);
 			return new ResponseEntity<ResponseObjectXML<ClassesDto>>(responseObjectXML, HttpStatus.BAD_REQUEST);
 		}
@@ -84,13 +80,13 @@ public class ClassesServicesImpl implements ClassesServiceInterface {
 	}
 
 	@Override
-	public ResponseEntity<ResponseObjectXML<ClassesDto>> deleteClassData(ClassDtls deleteclassDtls) {
+	public ResponseEntity<ResponseObjectXML<ClassesDto>> deleteClassData(Integer rowId) {
 		
 		List<ClassesDto> classesDelData = new ArrayList<ClassesDto>();
 
 		try {
-			// Delete the Professor Details
-			classesDaoInterface.deleteById(deleteclassDtls.getId());
+			// Delete the Class Details
+			classesDaoInterface.deleteById(rowId);
 
 			// Sending response
 			responseObjectXML.setStatusCode(HttpStatus.OK.value());
@@ -111,7 +107,6 @@ public class ClassesServicesImpl implements ClassesServiceInterface {
        
 		List<ClassesDto> classesDataList = new ArrayList<ClassesDto>();
 		
-		
 		try {
 			List<ClassesDto> classesDTO = classesDaoInterface.findAll();
 			
@@ -122,10 +117,11 @@ public class ClassesServicesImpl implements ClassesServiceInterface {
 			System.out.println("Size"+classesDataList.size());
 			
 			if (classesDataList.size() == 0) {
+				System.out.println("Size1"+classesDataList.size());
 				responseObjectXML.setStatusCode(HttpStatus.NOT_FOUND.value());
 				responseObjectXML.setMessage("No records found");
 				responseObjectXML.setData(classesDataList);
-				return new ResponseEntity<ResponseObjectXML<ClassesDto>>(responseObjectXML, HttpStatus.NOT_FOUND);
+				return new ResponseEntity<ResponseObjectXML<ClassesDto>>(responseObjectXML, HttpStatus.OK);
 			}
 			else
 			{
