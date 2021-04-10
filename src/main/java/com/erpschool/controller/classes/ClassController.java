@@ -49,6 +49,7 @@ public class ClassController {
 	@GetMapping("getAllClasses")
 	public ResponseEntity<ResponseObjectXML<ClassesDto>> getAllClasses()
 	{
+		System.out.println("Get all Classes");
 		return classesServiceInterface.getAllClasses();
 	}
 }
