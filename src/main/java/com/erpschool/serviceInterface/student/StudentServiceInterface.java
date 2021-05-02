@@ -12,6 +12,13 @@ public interface StudentServiceInterface {
 
 	ResponseEntity<ResponseObjectXML<StudentDTO>> addStudent(StudentDtls studDTls) throws JsonMappingException, JsonProcessingException;
 
+	ResponseEntity<ResponseObjectXML<StudentDTO>> getAllStudents();
+
+	ResponseEntity<ResponseObjectXML<StudentDTO>> deleteStudentData(String rowId);
+
 }
+
+
+
 
 
