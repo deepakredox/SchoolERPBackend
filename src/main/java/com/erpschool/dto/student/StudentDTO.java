@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name="studentinfo")
+@Entity
 @Table(name="studentinfo")
 public class StudentDTO implements Serializable {
 	

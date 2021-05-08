@@ -15,18 +15,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.erpschool.apiresponse.ResponseObjectXML;
-import com.erpschool.dao.student.StudentDaoInterface;
+import com.erpschool.dao.student.StudentDaoInterfacess;
 import com.erpschool.dto.student.StudentDTO;
 import com.erpschool.model.student.StudentDtls;
-import com.erpschool.serviceInterface.student.StudentServiceInterface;
+import com.erpschool.serviceInterface.student.StudentServicesInterface;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Service
-public class StudentServiceImpl implements StudentServiceInterface {
+public class StudentServicesImpl implements StudentServicesInterface {
 
 	@Autowired
-	private StudentDaoInterface studentDaoInterface;
+	private StudentDaoInterfacess studentDaoInterface;
 
 	@Autowired
 	ServletContext context;

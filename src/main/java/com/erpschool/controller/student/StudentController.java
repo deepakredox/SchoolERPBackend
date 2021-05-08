@@ -1,29 +1,24 @@
 package com.erpschool.controller.student;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletContext;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.erpschool.apiresponse.ResponseObjectXML;
 import com.erpschool.dto.student.StudentDTO;
 import com.erpschool.model.student.StudentDtls;
-import com.erpschool.serviceInterface.student.StudentServiceInterface;
+import com.erpschool.service.student.StudentServiceInterface;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -36,51 +31,69 @@ public class StudentController {
 	@Autowired
 	ServletContext context;
 
+	ResponseObjectXML<StudentDtls> responseObjectXML = new ResponseObjectXML<StudentDtls>();
+
 	@PostMapping("/addstudent")
-	public void addStudent(@RequestParam("studInfo") String studInfo, @RequestParam("studImg") MultipartFile file)
-			throws JsonMappingException, JsonProcessingException {
+	public ResponseEntity<ResponseObjectXML<StudentDtls>> addStudent(@RequestParam("studInfo") String studInfo,
+			@RequestParam("studImg") MultipartFile file) throws JsonMappingException, JsonProcessingException {
 
-		ObjectMapper objectMapper = new ObjectMapper();
-		StudentDtls studDTls = objectMapper.readValue(studInfo, StudentDtls.class);
+		List<StudentDtls> addStudentData = new ArrayList<StudentDtls>();
 
-		// upload image to server under src/main/webapp and file name save to database
-		String imageFileName = uploadImageData(file);
+		Boolean saveStudentData = studServiceInterface.saveStudentData(studInfo, file);
 
-		studDTls.setUploadImg(imageFileName);
+		if (saveStudentData == true) {
 
-		// Student details save to Database
-		studServiceInterface.addStudent(studDTls);
-
+			// response send back to UI
+			responseObjectXML.setStatusCode(HttpStatus.OK.value());
+			responseObjectXML.setMessage("New Student has been Added");
+			responseObjectXML.setData(addStudentData);
+			return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
+		} else {
+			responseObjectXML.setStatusCode(HttpStatus.BAD_REQUEST.value());
+			responseObjectXML.setMessage("Error in saving student data");
+			responseObjectXML.setData(null);
+			return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.BAD_REQUEST);
+		}
 	}
 
-	private String uploadImageData(MultipartFile file) {
+	
+	@GetMapping("getAllStudents")
+	public ResponseEntity<ResponseObjectXML<StudentDtls>> getAllStudents() {
+		List<StudentDtls> studentDataList = new ArrayList<StudentDtls>();
 
-		boolean isExist = new File(context.getRealPath("/studentImage/")).exists();
-		if (!isExist) {
-			new File(context.getRealPath("/studentImage/")).mkdir();
-		}
-		String filename = file.getOriginalFilename();
-		String modifiedFileName = FilenameUtils.getBaseName(filename) + "_" + System.currentTimeMillis() + "."
-				+ FilenameUtils.getExtension(filename);
-		File serverfile = new File(context.getRealPath("/studentImage/" + File.separator + modifiedFileName));
+		List<StudentDtls> getStudentData = studServiceInterface.getAllStudents();
+
+		System.out.println("Get Student Data " + getStudentData);
 
 		try {
-			FileUtils.writeByteArrayToFile(serverfile, file.getBytes());
+
+			for (StudentDtls studentData : getStudentData) {
+				studentDataList.add(studentData);
+			}
+
+			System.out.println("Size" + studentDataList.size());
+
+			if (studentDataList.size() == 0) {
+				System.out.println("Size1" + studentDataList.size());
+				responseObjectXML.setStatusCode(HttpStatus.NOT_FOUND.value());
+				responseObjectXML.setMessage("No records found");
+				responseObjectXML.setData(studentDataList);
+				return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
+			} else {
+				// Get All Student Images
+				studServiceInterface.getAllStudentImage(studentDataList);
+
+				responseObjectXML.setStatusCode(HttpStatus.OK.value());
+				responseObjectXML.setMessage("Student Data Fetch Successfully");
+				responseObjectXML.setData(studentDataList);
+				return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			responseObjectXML.setStatusCode(HttpStatus.BAD_REQUEST.value());
+			responseObjectXML.setMessage("Error while getting the data");
+			responseObjectXML.setData(null);
+			return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.BAD_REQUEST);
 		}
-		return modifiedFileName;
 	}
 
-	@DeleteMapping("/deleteStudent/{rowId}")
-	public ResponseEntity<ResponseObjectXML<StudentDTO>> deleteStudent(@PathVariable("rowId") String rowId) {
-
-		return studServiceInterface.deleteStudentData(rowId);
-
-	}
-
-	@GetMapping("getAllStudents")
-	public ResponseEntity<ResponseObjectXML<StudentDTO>> getAllStudent() {
-		return studServiceInterface.getAllStudents();
-	}
 }
