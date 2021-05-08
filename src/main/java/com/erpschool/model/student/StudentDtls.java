@@ -2,12 +2,14 @@ package com.erpschool.model.student;
 
 public class StudentDtls {
 
+	private Long studId;
 	private String academicYear;
 	private String firstName;
 	private String middleName;
 	private String lastName;
 	private String className;
 	private String sectionName;
+	private String admissionNo;
 	private Integer rollNo;
 	private String gender;
 	private String email;
@@ -21,21 +23,22 @@ public class StudentDtls {
 	private String address;
 	private String uploadImg;
 
-	
-	public StudentDtls() {}
-	
+	public StudentDtls() {
+	}
 
-	public StudentDtls(String academicYear, String firstName, String middleName, String lastName, String className,
-			String sectionName, Integer rollNo, String gender, String email, String mobile, String admissionDate,
-			String landlineNumber, String parentName, String parentNumber, String studentDOB, String bGroup,
-			String address, String uploadImg) {
+	public StudentDtls(Long studId, String academicYear, String firstName, String middleName, String lastName,
+			String className, String sectionName, String admissionNo, Integer rollNo, String gender, String email,
+			String mobile, String admissionDate, String landlineNumber, String parentName, String parentNumber,
+			String studentDOB, String bGroup, String address, String uploadImg) {
 		super();
+		this.studId = studId;
 		this.academicYear = academicYear;
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
 		this.className = className;
 		this.sectionName = sectionName;
+		this.admissionNo = admissionNo;
 		this.rollNo = rollNo;
 		this.gender = gender;
 		this.email = email;
@@ -50,6 +53,14 @@ public class StudentDtls {
 		this.uploadImg = uploadImg;
 	}
 
+	public Long getStudId() {
+		return studId;
+	}
+
+	public void setStudId(Long studId) {
+		this.studId = studId;
+	}
+
 	public String getAcademicYear() {
 		return academicYear;
 	}
@@ -57,7 +68,7 @@ public class StudentDtls {
 	public void setAcademicYear(String academicYear) {
 		this.academicYear = academicYear;
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -96,6 +107,14 @@ public class StudentDtls {
 
 	public void setSectionName(String sectionName) {
 		this.sectionName = sectionName;
+	}
+
+	public String getAdmissionNo() {
+		return admissionNo;
+	}
+
+	public void setAdmissionNo(String admissionNo) {
+		this.admissionNo = admissionNo;
 	}
 
 	public Integer getRollNo() {
@@ -196,12 +215,13 @@ public class StudentDtls {
 
 	@Override
 	public String toString() {
-		return "StudentDtls [academicYear=" + academicYear + ", firstName=" + firstName + ", middleName=" + middleName
-				+ ", lastName=" + lastName + ", className=" + className + ", sectionName=" + sectionName + ", rollNo="
-				+ rollNo + ", gender=" + gender + ", email=" + email + ", mobile=" + mobile + ", admissionDate="
-				+ admissionDate + ", landlineNumber=" + landlineNumber + ", parentName=" + parentName
-				+ ", parentNumber=" + parentNumber + ", studentDOB=" + studentDOB + ", bGroup=" + bGroup + ", address="
-				+ address + ", uploadImg=" + uploadImg + "]";
+		return "StudentDtls [studId=" + studId + ", academicYear=" + academicYear + ", firstName=" + firstName
+				+ ", middleName=" + middleName + ", lastName=" + lastName + ", className=" + className
+				+ ", sectionName=" + sectionName + ", admissionNo=" + admissionNo + ", rollNo=" + rollNo + ", gender="
+				+ gender + ", email=" + email + ", mobile=" + mobile + ", admissionDate=" + admissionDate
+				+ ", landlineNumber=" + landlineNumber + ", parentName=" + parentName + ", parentNumber=" + parentNumber
+				+ ", studentDOB=" + studentDOB + ", bGroup=" + bGroup + ", address=" + address + ", uploadImg="
+				+ uploadImg + "]";
 	}
 
 }

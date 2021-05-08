@@ -8,7 +8,7 @@ import com.erpschool.model.student.StudentDtls;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-public interface StudentServiceInterface {
+public interface StudentServicesInterface {
 
 	ResponseEntity<ResponseObjectXML<StudentDTO>> addStudent(StudentDtls studDTls) throws JsonMappingException, JsonProcessingException;
 
