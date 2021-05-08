@@ -33,7 +33,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
 			
 			studDTls.setStudId(pkValData);
 			studDTls.setAdmissionNo(String.format(admissionYear + "%04d", pkValData));
-			rowResults = customQueryRepositoryInterface.updateStudentByAdmissionNo(studDTls);
+			rowResults = customQueryRepositoryInterface.updateAdmissionNoByStudentId(studDTls);
 			return rowResults;
 			
 		} catch (Exception e) {
@@ -44,8 +44,15 @@ public class StudentDaoImpl implements StudentDaoInterface {
 	}
 
 	@Override
-	public List<StudentDtls> getAllStudentData() {
+	public List<Object[]> getAllStudentData() {
 		
 		return customQueryRepositoryInterface.getAllStudentRecord();
+	}
+
+	@Override
+	public Integer deleteStudentData(String studAdmnNo) {
+		
+		return customQueryRepositoryInterface.deleteStudentData(studAdmnNo);
+		
 	}
 }

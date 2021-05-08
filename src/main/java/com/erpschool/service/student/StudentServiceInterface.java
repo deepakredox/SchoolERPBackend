@@ -12,11 +12,14 @@ public interface StudentServiceInterface {
 
 	Boolean saveStudentData(String studInfo, MultipartFile file) throws JsonMappingException, JsonProcessingException;
 
-	List<StudentDtls> getAllStudents();
+	List<StudentDtls> getAllStudentsList();
 
 	void getAllStudentImage(List<StudentDtls> studentDataList);
 
+	Integer deleteStudentData(String studAdmnNo);
+
 }
+
 
 
 

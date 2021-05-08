@@ -8,8 +8,11 @@ public interface StudentDaoInterface {
 
 	Integer saveStudentData(StudentDtls studDTls);
 
-	List<StudentDtls> getAllStudentData();
+	List<Object[]> getAllStudentData();
+
+	Integer deleteStudentData(String studAdmnNo);
 
 }
+
 
 
