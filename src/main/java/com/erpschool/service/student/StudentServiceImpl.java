@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.erpschool.dao.student.StudentDaoInterface;
-import com.erpschool.dto.student.StudentDTO;
 import com.erpschool.model.student.StudentDtls;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;

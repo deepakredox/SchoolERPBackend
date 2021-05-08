@@ -16,7 +16,8 @@ public interface ProfessorDaoInterface extends JpaRepository<ProfessorDTO,Intege
     
     @Transactional
     @Modifying
-    // @Query("select pi from professor_info pi") JPQL
-    @Query(value ="select * from professor_info pi", nativeQuery = true)  // native query
+    // @Query("select pi from professor_info pi")
+   @Query(value ="select * from professor_info pi", nativeQuery = true)  // native query
     public List<ProfessorDTO> getProfesstor();
+
 }
