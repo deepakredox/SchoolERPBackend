@@ -10,9 +10,9 @@ public interface ProfessorServiceInterface {
 
 	ResponseEntity<ResponseObjectXML<ProfessorDTO>> addNewProfessorData(ProfessorDtls addProfessorDtls);
 
-	ResponseEntity<ResponseObjectXML<ProfessorDTO>> editProfessorData(ProfessorDtls editProfessorDtls);
+	ResponseEntity<ResponseObjectXML<ProfessorDTO>> editProfessorData(ProfessorDtls editProfessorDtls, Integer professorId);
 
-	ResponseEntity<ResponseObjectXML<ProfessorDTO>> deleteProfessorData(ProfessorDtls delProfessorDtls);
+	ResponseEntity<ResponseObjectXML<ProfessorDTO>> deleteProfessorData(Integer professorId);
 
 	ResponseEntity<ResponseObjectXML<ProfessorDTO>> getAllProfessorData();
 }

@@ -61,18 +61,16 @@ public class ProfessorServiceImpl implements ProfessorServiceInterface {
 	}
 
 	@Override
-	public ResponseEntity<ResponseObjectXML<ProfessorDTO>> editProfessorData(ProfessorDtls editProfessorDtls) {
+	public ResponseEntity<ResponseObjectXML<ProfessorDTO>> editProfessorData(ProfessorDtls editProfessorDtls , Integer professorId) {
 
 		ProfessorDTO editProfessorDTO = new ProfessorDTO();
 		List<ProfessorDTO> professorEditData = new ArrayList<ProfessorDTO>();
 
 		try {
-			Optional<ProfessorDTO> editProfessorDTO1 = professorDaoInterface.findById(editProfessorDtls.getId());
+			Optional<ProfessorDTO> editProfessorDTO1 = professorDaoInterface.findById(professorId);
 
 			if (editProfessorDTO1.isPresent()) {
-				System.out.println(editProfessorDtls.getId());
-				editProfessorDTO.setId(editProfessorDtls.getId());
-
+				editProfessorDTO.setId(professorId);
 				editProfessorDTO.setFirstname(editProfessorDtls.getFirstname());
 				editProfessorDTO.setLastname(editProfessorDtls.getLastname());
 				editProfessorDTO.setGender(editProfessorDtls.getGender());
@@ -86,7 +84,6 @@ public class ProfessorServiceImpl implements ProfessorServiceInterface {
 				editProfessorDTO.setDob(editProfessorDtls.getDob());
 				editProfessorDTO.setEducation(editProfessorDtls.getEducation());
 				editProfessorDTO.setUploadImg(editProfessorDtls.getUploadImg());
-
 				professorDaoInterface.save(editProfessorDTO);
 
 				// Sending response
@@ -108,13 +105,13 @@ public class ProfessorServiceImpl implements ProfessorServiceInterface {
 	}
 
 	@Override
-	public ResponseEntity<ResponseObjectXML<ProfessorDTO>> deleteProfessorData(ProfessorDtls delProfessorDtls) {
+	public ResponseEntity<ResponseObjectXML<ProfessorDTO>> deleteProfessorData(Integer professorId) {
 
 		List<ProfessorDTO> professorDelData = new ArrayList<ProfessorDTO>();
 
 		try {
 			// Delete the Professor Details
-			professorDaoInterface.deleteById(delProfessorDtls.getId());
+			professorDaoInterface.deleteById(professorId);
 
 			// Sending response
 			responseObjectXML.setStatusCode(HttpStatus.OK.value());
@@ -137,13 +134,13 @@ public class ProfessorServiceImpl implements ProfessorServiceInterface {
 		
 		
 		try {
-			List<ProfessorDTO> professorDTO = professorDaoInterface.findAll();
+			List<ProfessorDTO> professorDTO = professorDaoInterface.getProfesstor();
 			
 			for (ProfessorDTO professorData : professorDTO) {
 				professorDataList.add(professorData);
 			}
 			
-			System.out.println("Size"+professorDataList.size());
+			System.out.println("Size"+professorDataList.size() + "list" + professorDataList);
 			
 			if (professorDataList.size() == 0) {
 				responseObjectXML.setStatusCode(HttpStatus.NOT_FOUND.value());
