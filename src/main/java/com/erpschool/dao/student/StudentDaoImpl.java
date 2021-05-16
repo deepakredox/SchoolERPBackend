@@ -1,20 +1,21 @@
 package com.erpschool.dao.student;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.erpschool.apiresponse.ResponseObjectXML;
 import com.erpschool.model.student.StudentDtls;
-import com.erpschool.repository.student.CustomQueryRepositoryInterface;
+import com.erpschool.repository.student.StudentCustomQueryRepositoryInterface;
 
 @Component
 @Transactional
 public class StudentDaoImpl implements StudentDaoInterface {
 
 	@Autowired
-	private CustomQueryRepositoryInterface customQueryRepositoryInterface;
+	private StudentCustomQueryRepositoryInterface customQueryRepositoryInterface;
 
 	ResponseObjectXML<StudentDtls> responseObjectXML = new ResponseObjectXML<StudentDtls>();
 
@@ -50,9 +51,15 @@ public class StudentDaoImpl implements StudentDaoInterface {
 	}
 
 	@Override
-	public Integer deleteStudentData(String studAdmnNo) {
+	public Integer deleteStudentData(Integer studAdmnNo) {
 		
 		return customQueryRepositoryInterface.deleteStudentData(studAdmnNo);
 		
+	}
+
+	@Override
+	public Map<String, Integer> getStudImageNameByAdmissionNo(List<Integer> studAdmnNo) {
+		
+		return customQueryRepositoryInterface.getStudImageNameByAdmissionNo(studAdmnNo);
 	}
 }

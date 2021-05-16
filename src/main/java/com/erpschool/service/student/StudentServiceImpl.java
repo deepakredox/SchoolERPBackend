@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -30,7 +31,8 @@ public class StudentServiceImpl implements StudentServiceInterface {
 	ServletContext context;
 
 	@Override
-	public Boolean saveStudentData(String studInfo, MultipartFile file) throws JsonMappingException, JsonProcessingException {
+	public Boolean saveStudentData(String studInfo, MultipartFile file)
+			throws JsonMappingException, JsonProcessingException {
 
 		Boolean saveStudentResult = false;
 
@@ -81,17 +83,16 @@ public class StudentServiceImpl implements StudentServiceInterface {
 
 	@Override
 	public List<StudentDtls> getAllStudentsList() {
-		
+
 		List<StudentDtls> studentList = new ArrayList<StudentDtls>();
 		StudentDtls stud = null;
 		List<Object[]> getStudentListData = studentDaoInterface.getAllStudentData();
-		for(Object[] obj : getStudentListData )
-		{
+		for (Object[] obj : getStudentListData) {
 			stud = new StudentDtls();
 			stud.setStudId(Long.parseLong(obj[0].toString()));
 			stud.setAcademicYear(obj[1].toString());
 			stud.setFirstName(obj[2].toString());
-			stud.setMiddleName((obj[3] == null) ? null: obj[3].toString());
+			stud.setMiddleName((obj[3] == null) ? null : obj[3].toString());
 			stud.setLastName(obj[4].toString());
 			stud.setClassName(obj[5].toString());
 			stud.setSectionName(obj[6].toString());
@@ -108,7 +109,7 @@ public class StudentServiceImpl implements StudentServiceInterface {
 			stud.setbGroup(obj[17].toString());
 			stud.setAddress(obj[18].toString());
 			stud.setUploadImg(obj[19].toString());
-			
+
 			studentList.add(stud);
 		}
 		return studentList;
@@ -144,8 +145,40 @@ public class StudentServiceImpl implements StudentServiceInterface {
 	}
 
 	@Override
-	public Integer deleteStudentData(String studAdmnNo) {
-		
-		return studentDaoInterface.deleteStudentData(studAdmnNo);
+	public Boolean deleteStudentData(List<Integer> studAdmnNo) {
+
+		Map<String, Integer> getStudImageName = studentDaoInterface.getStudImageNameByAdmissionNo(studAdmnNo);
+
+		Boolean getImageData = false;
+
+		boolean isExist = new File(context.getRealPath("/studentImage/")).exists();
+		if (!isExist) {
+			return getImageData;
+		} else {
+			String filesPath = context.getRealPath("/studentImage");
+			File fileFolder = new File(filesPath);
+			if (fileFolder != null) {
+				
+				for (Map.Entry<String, Integer> entry : getStudImageName.entrySet()) {
+					for (final File file : fileFolder.listFiles()) {
+						if (!file.isDirectory()) {
+							if (entry.getKey().equals(file.getName())) {
+								try {
+									Integer getDeleteRow = studentDaoInterface.deleteStudentData(entry.getValue());
+									if (getDeleteRow == 1) {
+										file.delete();
+										System.out.println(file.getName() + " is deleted!");
+										getImageData = true;
+									}
+								} catch (Exception e) {
+									// TODO: handle exception
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return getImageData;
 	}
 }

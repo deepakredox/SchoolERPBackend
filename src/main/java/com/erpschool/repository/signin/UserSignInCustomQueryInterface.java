@@ -1,15 +1,13 @@
-package com.erpschool.dao.signin;
-
-import org.springframework.stereotype.Repository;
+package com.erpschool.repository.signin;
 
 import com.erpschool.model.signin.UserSignInDtls;
 
-@Repository
-public interface SigninDaoInterface {
-	
+public interface UserSignInCustomQueryInterface {
+
 	UserSignInDtls getUserAccessInfo(String uname);
 
 	String getUserEncryptPass(String uname);
+
 }
 
 

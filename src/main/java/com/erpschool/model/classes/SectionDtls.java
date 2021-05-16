@@ -7,6 +7,12 @@ public class SectionDtls {
 	private String abbreviation;
 	private int priority;
 	
+	
+	
+	public SectionDtls() {
+		super();
+	}
+
 	public SectionDtls(Integer id, String sectionName, String abbreviation, int priority) {
 		super();
 		this.id = id;
