@@ -13,13 +13,13 @@ public class ErpSchoolApplication {
 		SpringApplication.run(ErpSchoolApplication.class, args);
 	}
 
-	// @Bean
-	// public WebMvcConfigurer corsConfigurer() {
-	// 	return new WebMvcConfigurer() {
-	// 		public void addCorsMappings(CorsRegistry registry) {
-	// 			registry.addMapping("/*").allowedHeaders("*").allowedOrigins("*").allowedMethods("*")
-	// 					.allowCredentials(true);
-	// 		}
-	// 	};
-	// }
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/*").allowedHeaders("*").allowedOrigins("*").allowedMethods("*")
+						.allowCredentials(true);
+			}
+		};
+	}
 }
