@@ -55,7 +55,7 @@ public class CustomQueryRepositoryImpl implements CustomQueryRepositoryInterface
 	}
 
 	@Override
-	public Integer updateStudentByAdmissionNo(StudentDtls studDTls) {
+	public Integer updateAdmissionNoByStudentId(StudentDtls studDTls) {
 
 		String sql = "update studentinfo set ADMISSION_NUMBER = ? where STUDENT_ID = ?";
 		Query query = em.createNativeQuery(sql);
@@ -67,12 +67,20 @@ public class CustomQueryRepositoryImpl implements CustomQueryRepositoryInterface
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<StudentDtls> getAllStudentRecord() {
+	public List<Object[]> getAllStudentRecord() {
 		
 		String getStudentData = "select * from studentinfo";
 		Query query = em.createNativeQuery(getStudentData);
-		List<StudentDtls> getAllStudentData = query.getResultList();
+		List<Object[]> getAllStudentData = query.getResultList();
 		return getAllStudentData;
+	}
+
+	@Override
+	public Integer deleteStudentData(String studAdmnNo) {
+	 
+		 String delStudentData = "DELETE stud from studentinfo stud where stud.ADMISSION_NUMBER =" +studAdmnNo;
+		 Query query = em.createNativeQuery(delStudentData);
+		 return query.executeUpdate();
 	}
 
 }

@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.erpschool.apiresponse.ResponseObjectXML;
-import com.erpschool.dto.student.StudentDTO;
 import com.erpschool.model.student.StudentDtls;
 import com.erpschool.service.student.StudentServiceInterface;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -56,41 +57,52 @@ public class StudentController {
 		}
 	}
 
-	
 	@GetMapping("getAllStudents")
 	public ResponseEntity<ResponseObjectXML<StudentDtls>> getAllStudents() {
-		List<StudentDtls> studentDataList = new ArrayList<StudentDtls>();
 
-		List<StudentDtls> getStudentData = studServiceInterface.getAllStudents();
-
-		System.out.println("Get Student Data " + getStudentData);
+		List<StudentDtls> getStudentData = studServiceInterface.getAllStudentsList();
 
 		try {
 
-			for (StudentDtls studentData : getStudentData) {
-				studentDataList.add(studentData);
-			}
-
-			System.out.println("Size" + studentDataList.size());
-
-			if (studentDataList.size() == 0) {
-				System.out.println("Size1" + studentDataList.size());
+			if (getStudentData.size() == 0) {
+				System.out.println("Size1" + getStudentData.size());
 				responseObjectXML.setStatusCode(HttpStatus.NOT_FOUND.value());
 				responseObjectXML.setMessage("No records found");
-				responseObjectXML.setData(studentDataList);
+				responseObjectXML.setData(getStudentData);
 				return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
 			} else {
 				// Get All Student Images
-				studServiceInterface.getAllStudentImage(studentDataList);
+				studServiceInterface.getAllStudentImage(getStudentData);
 
 				responseObjectXML.setStatusCode(HttpStatus.OK.value());
 				responseObjectXML.setMessage("Student Data Fetch Successfully");
-				responseObjectXML.setData(studentDataList);
+				responseObjectXML.setData(getStudentData);
 				return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			responseObjectXML.setStatusCode(HttpStatus.BAD_REQUEST.value());
 			responseObjectXML.setMessage("Error while getting the data");
+			responseObjectXML.setData(null);
+			return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@DeleteMapping("/deleteStudent/{studAdmnNo}")
+	public ResponseEntity<ResponseObjectXML<StudentDtls>> deleteStudentData(
+			@PathVariable("studAdmnNo") String studAdmnNo) {
+		List<StudentDtls> delStudentData = new ArrayList<StudentDtls>();
+		Integer rowDeleted = studServiceInterface.deleteStudentData(studAdmnNo);
+
+		if (rowDeleted == 1) {
+
+			// response send back to UI
+			responseObjectXML.setStatusCode(HttpStatus.OK.value());
+			responseObjectXML.setMessage("Student has been Deleted Successfully");
+			responseObjectXML.setData(delStudentData);
+			return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
+		} else {
+			responseObjectXML.setStatusCode(HttpStatus.BAD_REQUEST.value());
+			responseObjectXML.setMessage("Error in delete student data");
 			responseObjectXML.setData(null);
 			return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.BAD_REQUEST);
 		}

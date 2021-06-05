@@ -8,11 +8,15 @@ public interface CustomQueryRepositoryInterface {
 
 	Long saveStudentData(StudentDtls studDTls);
 
-	Integer updateStudentByAdmissionNo(StudentDtls studDTls);
+	Integer updateAdmissionNoByStudentId(StudentDtls studDTls);
 
-	List<StudentDtls> getAllStudentRecord();
+	List<Object[]> getAllStudentRecord();
+
+	Integer deleteStudentData(String studAdmnNo);
 
 }
+
+
 
 
 

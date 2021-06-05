@@ -17,7 +17,7 @@ import com.erpschool.model.classes.ClassDtls;
 import com.erpschool.serviceInterface.classes.ClassesServiceInterface;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4201")
 @RequestMapping("/class")
 public class ClassController {
 	

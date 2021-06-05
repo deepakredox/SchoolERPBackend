@@ -8,7 +8,7 @@ public class ProfessorDtls {
 	private String gender;
 	private String mobile;
 	private String password;
-	private String conformPassword;
+	private String confirmPassword;
 	private String designation;
 	private String department;
 	private String address;
@@ -17,9 +17,11 @@ public class ProfessorDtls {
 	private String education;
 	private String uploadImg;
 	
-	
+	public ProfessorDtls(){	
+	}
+
 	public ProfessorDtls(Integer id, String firstname, String lastname, String gender, String mobile, String password,
-			String conformPassword, String designation, String department, String address, String email, String dob,
+			String confirmPassword, String designation, String department, String address, String email, String dob,
 			String education, String uploadImg) {
 		super();
 		this.id = id;
@@ -28,7 +30,7 @@ public class ProfessorDtls {
 		this.gender = gender;
 		this.mobile = mobile;
 		this.password = password;
-		this.conformPassword = conformPassword;
+		this.confirmPassword = confirmPassword;
 		this.designation = designation;
 		this.department = department;
 		this.address = address;
@@ -87,11 +89,11 @@ public class ProfessorDtls {
 	}
 
 	public String getConformPassword() {
-		return (conformPassword == "") ? "(NULL)" : conformPassword;
+		return (confirmPassword == "") ? "(NULL)" : confirmPassword;
 	}
 
-	public void setConformPassword(String conformPassword) {
-		this.conformPassword = conformPassword;
+	public void setConformPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public String getDesignation() {
@@ -153,7 +155,7 @@ public class ProfessorDtls {
 	@Override
 	public String toString() {
 		return "ProfessorDtls [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", gender=" + gender
-				+ ", mobile=" + mobile + ", password=" + password + ", conformPassword=" + conformPassword
+				+ ", mobile=" + mobile + ", password=" + password + ", confirmPassword=" + confirmPassword
 				+ ", designation=" + designation + ", department=" + department + ", address=" + address + ", email="
 				+ email + ", dob=" + dob + ", education=" + education + ", uploadImg=" + uploadImg + "]";
 	}

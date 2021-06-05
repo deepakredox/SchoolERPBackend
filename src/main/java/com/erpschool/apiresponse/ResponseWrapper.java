@@ -10,6 +10,16 @@ public class ResponseWrapper {
 	private String desc;
 	private AuthenticationJwtResponse authenticationJwtResponse;
 	
+	public ResponseWrapper(int code, String message) {
+		this.statusCode = code;
+		this.desc = message;
+	}
+	
+   // default contructore
+	public ResponseWrapper() {
+	}
+
+
 	public String getTimestamp() {
 		return timestamp;
 	}

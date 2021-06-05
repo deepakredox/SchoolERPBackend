@@ -21,7 +21,7 @@ import com.erpschool.serviceImpl.signin.SignInServiceImpl;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4201")
 public class JwtAuthenticationController {
 
 	@Autowired
