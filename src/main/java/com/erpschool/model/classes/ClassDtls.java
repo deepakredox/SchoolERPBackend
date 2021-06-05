@@ -6,6 +6,12 @@ public class ClassDtls {
 	private String className;
 	private String abbreviation;
 	private int priority;
+	
+	
+
+	public ClassDtls() {
+		
+	}
 
 	public ClassDtls(Integer id, String className, String abbreviation, int priority) {
 		super();

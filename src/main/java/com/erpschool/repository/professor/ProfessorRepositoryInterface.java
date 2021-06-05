@@ -9,5 +9,5 @@ public interface ProfessorRepositoryInterface {
     
     Integer addProfessorDtls(ProfessorDtls profDtls);
     List<Object[]> getAllProfessor();
-    Integer editProfDetails(ProfessorDtls professorDtls , Integer professorId);
+    Integer editProfDetails(ProfessorDtls professorDtls);
 }

@@ -9,6 +9,19 @@ public class ClassSectionDtls {
 	private Integer strength;
 	
 	
+	public ClassSectionDtls() {
+	}
+	
+	
+	public ClassSectionDtls(Integer id, String className, String sectionName, String classTeacher, Integer strength) {
+		super();
+		this.id = id;
+		this.className = className;
+		this.sectionName = sectionName;
+		this.classTeacher = classTeacher;
+		this.strength = strength;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -40,4 +53,13 @@ public class ClassSectionDtls {
 	public void setStrength(Integer strength) {
 		this.strength = strength;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ClassSectionDtls [id=" + id + ", className=" + className + ", sectionName=" + sectionName
+				+ ", classTeacher=" + classTeacher + ", strength=" + strength + "]";
+	}
+	
+	
 }

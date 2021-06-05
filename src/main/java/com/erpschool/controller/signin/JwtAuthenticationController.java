@@ -17,7 +17,7 @@ import com.erpschool.apiresponse.AuthenticationJwtResponse;
 import com.erpschool.apiresponse.ResponseWrapper;
 import com.erpschool.config.JwtTokenUtil;
 import com.erpschool.model.signin.UserSignInDtls;
-import com.erpschool.serviceImpl.signin.SignInServiceImpl;
+import com.erpschool.service.signin.SignInServiceInterface;
 
 
 @RestController
@@ -28,7 +28,7 @@ public class JwtAuthenticationController {
 	private JwtTokenUtil jwtTokenUtil;
 
 	@Autowired
-	private SignInServiceImpl userDetailServiceImpl;
+	private SignInServiceInterface userDetailServiceInterface;
 	
 	
 	// Current Date and time
@@ -44,7 +44,7 @@ public class JwtAuthenticationController {
 		
 		ResponseWrapper responseWrapper  = new ResponseWrapper();
 		
-		final UserDetails userDetails = userDetailServiceImpl
+		final UserDetails userDetails = userDetailServiceInterface
 				.getUserAccessInfo(authenticationRequest.getUsername(),authenticationRequest.getPassword());
 		
 		System.out.println("userDetails.........."+userDetails);

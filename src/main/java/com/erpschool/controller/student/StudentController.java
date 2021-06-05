@@ -48,13 +48,12 @@ public class StudentController {
 			responseObjectXML.setStatusCode(HttpStatus.OK.value());
 			responseObjectXML.setMessage("New Student has been Added");
 			responseObjectXML.setData(addStudentData);
-			return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
 		} else {
 			responseObjectXML.setStatusCode(HttpStatus.BAD_REQUEST.value());
 			responseObjectXML.setMessage("Error in saving student data");
 			responseObjectXML.setData(null);
-			return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.BAD_REQUEST);
 		}
+		return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
 	}
 
 	@GetMapping("getAllStudents")
@@ -66,10 +65,9 @@ public class StudentController {
 
 			if (getStudentData.size() == 0) {
 				System.out.println("Size1" + getStudentData.size());
-				responseObjectXML.setStatusCode(HttpStatus.NOT_FOUND.value());
+				responseObjectXML.setStatusCode(HttpStatus.NO_CONTENT.value());
 				responseObjectXML.setMessage("No records found");
 				responseObjectXML.setData(getStudentData);
-				return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
 			} else {
 				// Get All Student Images
 				studServiceInterface.getAllStudentImage(getStudentData);
@@ -77,35 +75,32 @@ public class StudentController {
 				responseObjectXML.setStatusCode(HttpStatus.OK.value());
 				responseObjectXML.setMessage("Student Data Fetch Successfully");
 				responseObjectXML.setData(getStudentData);
-				return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			responseObjectXML.setStatusCode(HttpStatus.BAD_REQUEST.value());
 			responseObjectXML.setMessage("Error while getting the data");
 			responseObjectXML.setData(null);
-			return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.BAD_REQUEST);
 		}
+		return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/deleteStudent/{studAdmnNo}")
-	public ResponseEntity<ResponseObjectXML<StudentDtls>> deleteStudentData(
-			@PathVariable("studAdmnNo") String studAdmnNo) {
+	public ResponseEntity<ResponseObjectXML<StudentDtls>> deleteStudentData(@PathVariable("studAdmnNo") List<Integer> studAdmnNo) {
+		
 		List<StudentDtls> delStudentData = new ArrayList<StudentDtls>();
-		Integer rowDeleted = studServiceInterface.deleteStudentData(studAdmnNo);
+		Boolean rowDeletedStatus = studServiceInterface.deleteStudentData(studAdmnNo);
 
-		if (rowDeleted == 1) {
+		if (rowDeletedStatus == true) {
 
 			// response send back to UI
 			responseObjectXML.setStatusCode(HttpStatus.OK.value());
 			responseObjectXML.setMessage("Student has been Deleted Successfully");
 			responseObjectXML.setData(delStudentData);
-			return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
 		} else {
 			responseObjectXML.setStatusCode(HttpStatus.BAD_REQUEST.value());
 			responseObjectXML.setMessage("Error in delete student data");
 			responseObjectXML.setData(null);
-			return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.BAD_REQUEST);
 		}
+		return new ResponseEntity<ResponseObjectXML<StudentDtls>>(responseObjectXML, HttpStatus.OK);
 	}
-
 }

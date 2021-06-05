@@ -9,12 +9,19 @@ public class UserSignInDtls implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
+	private Integer id;  
 	private String username;
 	private String password;
 	
-	
-	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -30,12 +37,10 @@ public class UserSignInDtls implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 
 	@Override
 	public String toString() {
-		return "UserSignInDtls [username=" + username + ", password=" + password + "]";
+		return "UserSignInDtls [id=" + id + ", username=" + username + ", password=" + password + "]";
 	}
 
 	public UserSignInDtls() {

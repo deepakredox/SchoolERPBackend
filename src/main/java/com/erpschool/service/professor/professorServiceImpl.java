@@ -96,9 +96,9 @@ public class professorServiceImpl implements ProfessorServiceInterface {
     }
 
     @Override
-    public Boolean editProfessor(ProfessorDtls professorDtls, Integer professorId) {
-        System.out.println(professorDtls + "" +professorId);
-        Integer result = professorDaoInterface.editProfessorData(professorDtls , professorId);
+    public Boolean editProfessor(ProfessorDtls professorDtls) {
+        // System.out.println(professorDtls);
+        Integer result = professorDaoInterface.editProfessorData(professorDtls);
         return null;
     }
 

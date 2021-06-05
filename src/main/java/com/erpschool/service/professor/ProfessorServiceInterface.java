@@ -12,5 +12,5 @@ public interface ProfessorServiceInterface {
     
     Boolean addNewProfessor(String profInfo, MultipartFile file) throws JsonMappingException, JsonProcessingException;
     List<ProfessorDtls> getAllProfessor();
-    Boolean editProfessor(ProfessorDtls professorDtls, Integer professorId);
+    Boolean editProfessor(ProfessorDtls professorDtls);
 }

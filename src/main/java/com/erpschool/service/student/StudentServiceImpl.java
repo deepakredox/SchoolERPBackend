@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -144,8 +145,40 @@ public class StudentServiceImpl implements StudentServiceInterface {
 	}
 
 	@Override
-	public Integer deleteStudentData(String studAdmnNo) {
+	public Boolean deleteStudentData(List<Integer> studAdmnNo) {
 
-		return studentDaoInterface.deleteStudentData(studAdmnNo);
+		Map<String, Integer> getStudImageName = studentDaoInterface.getStudImageNameByAdmissionNo(studAdmnNo);
+
+		Boolean getImageData = false;
+
+		boolean isExist = new File(context.getRealPath("/studentImage/")).exists();
+		if (!isExist) {
+			return getImageData;
+		} else {
+			String filesPath = context.getRealPath("/studentImage");
+			File fileFolder = new File(filesPath);
+			if (fileFolder != null) {
+				
+				for (Map.Entry<String, Integer> entry : getStudImageName.entrySet()) {
+					for (final File file : fileFolder.listFiles()) {
+						if (!file.isDirectory()) {
+							if (entry.getKey().equals(file.getName())) {
+								try {
+									Integer getDeleteRow = studentDaoInterface.deleteStudentData(entry.getValue());
+									if (getDeleteRow == 1) {
+										file.delete();
+										System.out.println(file.getName() + " is deleted!");
+										getImageData = true;
+									}
+								} catch (Exception e) {
+									// TODO: handle exception
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return getImageData;
 	}
 }

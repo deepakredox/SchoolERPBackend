@@ -62,10 +62,9 @@ public class ProfessorRepositoryImpl implements ProfessorRepositoryInterface {
     }
 
     @Override
-    public Integer editProfDetails(ProfessorDtls profDtls, Integer professorId) {
+    public Integer editProfDetails(ProfessorDtls profDtls) {
         Integer querySuccess =0;
-        String insertStudentData = "Update professor_info SET (address,confirm_password,department,designation,dob,education,email,first_name,gender,last_name,mobile,password)"
-        + "values (?,?,?,?,?,?,?,?,?,?,?,?)  WHERE id = ?";
+        String insertStudentData = "Update professor_info SET address =? ,confirm_password=?,department=?,designation=?,dob=?,education=?,email=?,first_name=?,gender=?,last_name=?,mobile=?,password=? where id =?";
 
         try {
             Query ps1 = em.createNativeQuery(insertStudentData);
@@ -82,8 +81,9 @@ public class ProfessorRepositoryImpl implements ProfessorRepositoryInterface {
             ps1.setParameter(11, Long.parseLong(profDtls.getMobile()));
             ps1.setParameter(12, profDtls.getPassword());
             ps1.setParameter(13, profDtls.getUploadImg());
-            ps1.executeUpdate();
-            querySuccess = ((BigInteger) em.createNativeQuery("SELECT LAST_INSERT_ID()").getSingleResult()).intValue();
+            ps1.setParameter(14, profDtls.getId());
+            querySuccess = ps1.executeUpdate();
+            // querySuccess = ((BigInteger) em.createNativeQuery("SELECT LAST_INSERT_ID()").getSingleResult()).intValue();
     
         } catch (Exception e) {
             e.printStackTrace();

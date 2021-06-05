@@ -1,12 +1,10 @@
 package com.erpschool.dao.signup;
 
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import com.erpschool.dto.signup.UserSignupDTO;
+import com.erpschool.model.signup.UserSignupDetails;
 
 @Repository
-public interface UserSignUpDaoInterface extends CrudRepository<UserSignupDTO, Integer> {
+public interface UserSignUpDaoInterface {
 
-	UserSignupDTO findByEmail(String email);
+	Boolean addNewUser(UserSignupDetails userSignupDetails);
 }

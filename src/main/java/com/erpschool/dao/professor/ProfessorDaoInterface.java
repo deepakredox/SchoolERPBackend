@@ -9,5 +9,5 @@ public interface ProfessorDaoInterface {
     
     Integer saveProfData(ProfessorDtls profDtls);
     List<Object[]> getAllProfessor();
-    Integer editProfessorData(ProfessorDtls professorDtls , Integer professorId);
+    Integer editProfessorData(ProfessorDtls professorDtls);
 }

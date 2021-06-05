@@ -79,11 +79,11 @@ public class ProfessorController {
 	// 	return modifiedFileName;
 	// }
 
-	@PutMapping("/editProfessor/{professorId}")
+	@PutMapping("/editProfessor")
 	public ResponseEntity<ResponseObjectXML<ProfessorDtls>> editProfessorData(
-			@RequestBody ProfessorDtls editProfessorDtls, @PathVariable Integer professorId) {
-
-		   Boolean isProfessorEditSuccess = professorServiceInterface.editProfessor(editProfessorDtls, professorId);
+			@RequestBody ProfessorDtls editProfessorDtls) {
+            System.out.println("edit" + editProfessorDtls);
+		   Boolean isProfessorEditSuccess = professorServiceInterface.editProfessor(editProfessorDtls);
 		   return null;
 
 	}

@@ -16,7 +16,7 @@ public interface StudentServiceInterface {
 
 	void getAllStudentImage(List<StudentDtls> studentDataList);
 
-	Integer deleteStudentData(String studAdmnNo);
+	Boolean deleteStudentData(List<Integer> studAdmnNo);
 
 }
 

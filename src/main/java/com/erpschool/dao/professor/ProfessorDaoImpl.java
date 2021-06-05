@@ -35,8 +35,8 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface {
     }
 
     @Override
-    public Integer editProfessorData(ProfessorDtls professorDtls, Integer professorId) {
+    public Integer editProfessorData(ProfessorDtls professorDtls) {
         // TODO Auto-generated method stub
-        return professorRepoInterface.editProfDetails(professorDtls, professorId);
+        return professorRepoInterface.editProfDetails(professorDtls);
     }
 }
